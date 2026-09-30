@@ -1,16 +1,45 @@
 :root {
   --bg-color: #f3f6fb;
+  --page-gradient: linear-gradient(180deg, #eef5ff 0%, var(--bg-color) 100%);
   --card-color: #ffffff;
+  --surface-color: #f8fafc;
+  --item-color: #fbfdff;
   --primary-color: #4f8ef7;
   --primary-dark: #3d7ae8;
   --text-color: #1f2937;
   --muted-color: #6b7280;
   --border-color: #e5e7eb;
+  --card-border-color: rgba(148, 163, 184, 0.18);
   --shadow-color: rgba(15, 23, 42, 0.08);
+  --focus-shadow-color: rgba(79, 142, 247, 0.12);
   --danger-color: #ef4444;
   --danger-soft: #fee2e2;
+  --danger-hover-color: #fecaca;
   --success-color: #22c55e;
   --placeholder-color: #94a3b8;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #151a22;
+  --page-gradient: linear-gradient(180deg, #202a38 0%, var(--bg-color) 100%);
+  --card-color: #222b37;
+  --surface-color: #19222d;
+  --item-color: #263240;
+  --primary-color: #356fca;
+  --primary-dark: #3a75cf;
+  --text-color: #e7edf5;
+  --muted-color: #a6b2c2;
+  --border-color: #3b4858;
+  --card-border-color: rgba(193, 208, 228, 0.14);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --focus-shadow-color: rgba(114, 167, 255, 0.2);
+  --danger-color: #ff8585;
+  --danger-soft: #482e35;
+  --danger-hover-color: #5a3540;
+  --success-color: #65d98b;
+  --placeholder-color: #97a6b8;
+  color-scheme: dark;
 }
 
 * {
@@ -20,7 +49,7 @@
 body {
   margin: 0;
   font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
-  background: linear-gradient(180deg, #eef5ff 0%, var(--bg-color) 100%);
+  background: var(--page-gradient);
   color: var(--text-color);
 }
 
@@ -43,18 +72,42 @@ input {
   border-radius: 20px;
   box-shadow: 0 12px 30px var(--shadow-color);
   padding: 24px 20px 18px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  border: 1px solid var(--card-border-color);
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 18px;
 }
 
 .header h1 {
   margin: 0;
   font-size: clamp(1.8rem, 3vw, 2.2rem);
-  text-align: center;
+  text-align: left;
   color: var(--text-color);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 9px 11px;
+  background: var(--surface-color);
+  color: var(--text-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.filter-button:hover {
+  border-color: var(--primary-color);
 }
 
 .todo-form {
@@ -69,7 +122,7 @@ input {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 12px 14px;
-  background: #f8fafc;
+  background: var(--surface-color);
   color: var(--text-color);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -81,7 +134,7 @@ input {
 .todo-form input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.12);
+  box-shadow: 0 0 0 3px var(--focus-shadow-color);
 }
 
 .todo-form button {
@@ -103,6 +156,30 @@ input {
   transform: translateY(1px);
 }
 
+.todo-filters {
+  display: flex;
+  gap: 8px;
+  margin: -4px 0 14px;
+}
+
+.filter-button {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: var(--surface-color);
+  color: var(--muted-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.filter-button.active {
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+  color: #fff;
+}
+
 .todo-list {
   list-style: none;
   margin: 0;
@@ -118,7 +195,7 @@ input {
   padding: 12px 10px;
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  background: #fbfdff;
+  background: var(--item-color);
   margin-bottom: 10px;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
@@ -170,7 +247,7 @@ input {
 }
 
 .todo-delete:hover {
-  background: #fecaca;
+  background: var(--danger-hover-color);
 }
 
 .todo-delete:active {
@@ -184,7 +261,7 @@ input {
   min-height: 120px;
   color: var(--muted-color);
   text-align: center;
-  background: #f8fafc;
+  background: var(--surface-color);
   border: 1px dashed var(--border-color);
   border-radius: 12px;
   padding: 20px;
@@ -208,6 +285,15 @@ input {
 
   .todo-form {
     flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 1.65rem;
+  }
+
+  .theme-toggle {
+    padding: 8px 9px;
+    font-size: 0.9rem;
   }
 
   .todo-form button {

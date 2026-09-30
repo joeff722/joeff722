@@ -11,6 +11,10 @@
       <section class="todo-card">
         <header class="header">
           <h1>待辦清單</h1>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
+            <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
+            <span id="theme-toggle-label">深色模式</span>
+          </button>
         </header>
 
         <form id="todo-form" class="todo-form" autocomplete="off">
@@ -22,6 +26,12 @@
           />
           <button type="submit">新增</button>
         </form>
+
+        <nav class="todo-filters" aria-label="篩選待辦事項">
+          <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter-button" type="button" data-filter="active" aria-pressed="false">未完成</button>
+          <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">已完成</button>
+        </nav>
 
         <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
 
