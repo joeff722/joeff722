@@ -67,7 +67,7 @@ function renderTodos() {
     const emptyMessages = {
       all: '還沒有任何待辦事項，新增一個吧！',
       active: '目前沒有未完成的待辦事項。',
-      completed: '目前沒有已完成的待辦事項。',
+      completed: '目前沒有已完成的待辦事項，其他項目只是被篩選條件隱藏，並未刪除。',
     };
     todoList.innerHTML = `<li class="empty-state">${emptyMessages[currentFilter]}</li>`;
     updateSummary();
